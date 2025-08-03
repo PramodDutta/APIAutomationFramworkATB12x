@@ -1,2 +1,4 @@
-package com.thetestingacdemy.endpoints;public class APIConstants {
+package com.thetestingacdemy.endpoints;
+
+public class APIConstants {
 }

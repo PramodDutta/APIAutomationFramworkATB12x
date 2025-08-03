@@ -1,2 +1,4 @@
-package com.thetestingacdemy.asserts;public class AssertActions {
+package com.thetestingacdemy.asserts;
+
+public class AssertActions {
 }

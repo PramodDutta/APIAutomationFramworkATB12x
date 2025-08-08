@@ -13,6 +13,7 @@ import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
@@ -25,6 +26,16 @@ public class BaseTest {
     public JsonPath jsonPath;
     public Response response;
     public ValidatableResponse validatableResponse;
+//
+//    @BeforeMethod
+//    public void waitCustom(){
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
 
 
     @BeforeTest
@@ -50,7 +61,18 @@ public class BaseTest {
         System.out.println("Finished the Test!");
     }
 
+    public  String getToken(){
+        requestSpecification = RestAssured.given();
+        requestSpecification.baseUri(APIConstants.BASE_URL)
+                .basePath(APIConstants.AUTH_URL);
+        // Setting the payload
+        String payload = payloadManager.setAuthPayload();
+        // Get the Token
+        response = requestSpecification.contentType(ContentType.JSON).body(payload).when().post();
+        String token = payloadManager.getTokenFromJSON(response.asString());
+        return token;
 
+    }
 
 
 
